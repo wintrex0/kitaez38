@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КИТАЕЦ — Запчасти для китайских грузовиков</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background: #0a0a0a; color: #ffffff; line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* ШАПКА */
+        header { 
+            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            position: sticky; top: 0; z-index: 100; padding: 15px 0;
+        }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: bold; letter-spacing: 2px; color: #E6B325; }
+        
+        .nav a { 
+            margin-left: 20px; font-size: 14px; color: #ccc; transition: 0.3s; 
+            padding: 8px 15px; border-radius: 8px;
+        }
+        .nav a:hover { 
+            background: rgba(255,255,255,0.1); color: #E6B325; backdrop-filter: blur(5px);
+        }
+
+        /* БАННЕР */
+        .hero {
+            height: 70vh; min-height: 400px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; background: linear-gradient(135deg, #1a1a1a 0%, #000 100%); border-bottom: 1px solid #333; padding: 20px;
+        }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; text-transform: uppercase; }
+        .hero p { font-size: 18px; color: #aaa; margin-bottom: 30px; max-width: 600px; }
+
+        /* СТЕКЛЯННАЯ КНОПКА */
+        .btn-glass {
+            display: inline-block; padding: 18px 45px; 
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: #fff; font-weight: bold; font-size: 16px;
+            border-radius: 50px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-glass:hover {
+            background: rgba(230, 179, 37, 0.1); border-color: #E6B325;
+            box-shadow: 0 0 30px rgba(230, 179, 37, 0.3);
+            transform: translateY(-5px) scale(1.05); color: #E6B325;
+        }
+
+        /* СЕТКА КАТЕГОРИЙ */
+        .section-title { text-align: center; font-size: 36px; margin: 60px 0 40px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; padding-bottom: 60px; }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.03); /* Стеклянный фон */
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 16px; 
+            height: 280px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            position: relative; overflow: hidden; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(5px);
+        }
+        
+        /* Иконки запчастей (SVG) */
+        .card-icon {
+            width: 100px; height: 100px;
+            fill: #555; /* Темно-серый цвет в покое */
+            margin-bottom: 20px;
+            transition: all 0.4s;
+            z-index: 2;
+        }
+
+        .card-content { text-align: center; z-index: 2; }
+        .card h3 { font-size: 22px; margin-bottom: 8px; color: #fff; transition: 0.3s; }
+        .card p { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* ЭФФЕКТ ПРИ НАВЕДЕНИИ */
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(230, 179, 37, 0.05);
+            border-color: rgba(230, 179, 37, 0.5);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 30px rgba(230, 179, 37, 0.2);
+        }
+        
+        .card:hover .card-icon {
+            fill: #E6B325; /* Иконка становится золотой */
+            transform: scale(1.1) translateY(-5px);
+            filter: drop-shadow(0 0 15px rgba(230, 179, 37, 0.6));
+        }
+        
+        .card:hover h3 { color: #E6B325; }
+
+        /* ИНФО-БЛОКИ */
+        .info-section { padding: 60px 0; border-top: 1px solid #333; text-align: center; }
+        .info-section h2 { font-size: 32px; margin-bottom: 20px; }
+        .info-section p { color: #aaa; max-width: 800px; margin: 0 auto 20px; }
+        .contact-phone { display: block; font-size: 28px; font-weight: bold; color: #fff; margin: 10px 0; transition: 0.3s; }
+        .contact-phone:hover { color: #E6B325; }
+        
+        /* КНОПКА АДРЕСА */
+        .address-btn { 
+            display: inline-block; 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px);
+            padding: 15px 30px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(230, 179, 37, 0.4); 
+            color: #E6B325; 
+            margin-top: 20px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.3s;
+        }
+        .address-btn:hover { 
+            background: rgba(230, 179, 37, 0.1); box-shadow: 0 0 20px rgba(230, 179, 37, 0.2); transform: translateY(-3px);
+        }
+
+        /* МОДАЛЬНОЕ ОКНО КАРТ */
+        .map-modal {
+            position: fixed; inset: 0; z-index: 2000; 
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: 0.4s;
+        }
+        .map-modal.active { opacity: 1; pointer-events: all; }
+        
+        .modal-content { 
+            background: #121212; border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 20px; padding: 35px; width: 90%; max-width: 400px; 
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            transform: translateY(20px); transition: transform 0.4s;
+        }
+        .map-modal.active .modal-content { transform: translateY(0); }
+
+        .modal-content h3 { font-size: 24px; margin-bottom: 10px; }
+        .modal-content p { color: #aaa; font-size: 14px; margin-bottom: 25px; }
+        
+        .map-option {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 20px; border-radius: 12px;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 12px; cursor: pointer; transition: all 0.3s;
+            font-weight: 600; font-size: 16px;
+        }
+        .map-option:hover { background: rgba(255,255,255,0.08); border-color: #E6B325; transform: translateX(5px); }
+        
+        .map-badge { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #fff; }
+        .badge-ya { background: #FC3F1D; }
+        .badge-go { background: #4285F4; }
+        .badge-2g { background: #009B3A; }
+
+        .close-modal { margin-top: 15px; background: none; border: none; color: #666; cursor: pointer; transition: 0.3s; }
+        .close-modal:hover { color: #fff; }
+
+        /* АДАПТИВ */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .nav { display: none; }
+            .grid { grid-template-columns: 1fr; }
+            .card { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <div class="logo">⚡ КИТАЕЦ</div>
+            <div class="nav">
+                <a href="#">Главная</a>
+                <a href="#catalog">Каталог</a>
+                <a href="#contacts">Контакты</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>Запчасти для китайских грузовиков</h1>
+        <p>Оригинальные узлы и агрегаты для Sitrak, Shacman, Howo и Faw. Прямые поставки со склада в Иркутске.</p>
+        <button onclick="scrollToCatalog()" class="btn-glass">Смотреть каталог</button>
+    </div>
+
+    <div class="container" id="catalog">
+        <h2 class="section-title">Каталог запчастей</h2>
+        <div class="grid">
+            
+            <!-- 1. Двигатель (Иконка поршня/мотора) -->
+            <div class="card">
+                <svg class="card-icon" viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
+                <div class="card-content"><h3>Двигатель</h3><p>Weichai, оригинал</p></div>
+            </div>
+
+            <!-- 2. КПП (Иконка шестеренок) -->
+            <div class="card">
+                <svg class="card-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-2h2v2zm0-4H7v-2h2v2zm0-4H7V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/></svg>
+                <div class="card-content"><h3>Коробка передач</h3><p>Fast Gear, трансмиссия</p></div>
+            </div>
+
+            <!-- 3. Редуктор (Иконка диска/моста) -->
+            <div class="card">
+                <svg class="card-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+                <div class="card-content"><h3>Редуктор</h3><p>Hande, мосты</p></div>
+            </div>
+
+            <!-- 4. Тормоза (Иконка тормозного диска) -->
+            <div class="card">
+                <svg class="card-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                <div class="card-content"><h3>Тормозная система</h3><p>Колодки, диски</p></div>
+            </div>
+
+            <!-- 5. Подвеска (Иконка пружины) -->
+            <div class="card">
+                <svg class="card-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <div class="card-content"><h3>Детали подвески</h3><p>Рессоры, амортизаторы</p></div>
+            </div>
+
+            <!-- 6. Электрика (Иконка молнии) -->
+            <div class="card">
+                <svg class="card-icon" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+                <div class="card-content"><h3>Электрика</h3><p>Проводка, датчики</p></div>
+            </div>
+
+            <!-- 7. Кузов (Иконка кабины) -->
+            <div class="card">
+                <svg class="card-icon" viewBox="0 0 24 24"><path d="M18 6h-2c0-2.21-1.79-4-4-4S8 3.79 8 6H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm6 14H6V8h12v10z"/></svg>
+                <div class="card-content"><h3>Кузовные элементы</h3><p>Кабины, бамперы</p></div>
+            </div>
+
+            <!-- 8. Оптика (Иконка лампочки) -->
+            <div class="card">
+                <svg class="card-icon" viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+                <div class="card-content"><h3>Оптика</h3><p>Фары, фонари</p></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="info-section">
+        <div class="container">
+            <h2>О компании</h2>
+            <p>Компания ООО «Направление» предлагает Вам рассмотреть возможность сотрудничества в области поставок запчастей. Одним из главных направлений является поставка запасных частей к автомобилям SHAANXI, FAW, SITRAK и HOWO.</p>
+        </div>
+    </div>
+
+    <div class="info-section" id="contacts">
+        <div class="container">
+            <h2>Контакты</h2>
+            <a href="tel:+79149373957" class="contact-phone">+7 914 937 39 57</a>
+            <a href="tel:+79086698659" class="contact-phone">+7 908 669 86 59</a>
+            <a href="tel:+79526326120" class="contact-phone">+7 952 632 61 20</a>
+            
+            <div class="address-btn" onclick="openMapModal()">
+                📍 г. Иркутск, ул. Московская 1-ая, 1а, стр. 1
+            </div>
+        </div>
+    </div>
+
+    <div class="map-modal" id="mapModal" onclick="closeMapModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3>Построить маршрут</h3>
+            <p>Выберите приложение для навигации</p>
+            
+            <div class="map-option" onclick="openMap('yandex')">
+                <span>Яндекс Карты</span>
+                <div class="map-badge badge-ya">Я</div>
+            </div>
+            <div class="map-option" onclick="openMap('google')">
+                <span>Google Maps</span>
+                <div class="map-badge badge-go">G</div>
+            </div>
+            <div class="map-option" onclick="openMap('2gis')">
+                <span>2ГИС</span>
+                <div class="map-badge badge-2g">2</div>
+            </div>
+            
+            <button class="close-modal" onclick="closeMapModal()">Закрыть</button>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 20px; color: #555; font-size: 12px; border-top: 1px solid #333;">
+        © 2026 Магазин запчастей Китаец. Все права защищены.
+    </footer>
+
+    <script>
+        function scrollToCatalog() {
+            const element = document.getElementById('catalog');
+            const headerOffset = 60;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+
+        function openMapModal() { document.getElementById('mapModal').classList.add('active'); }
+        function closeMapModal(e) {
+            if (e && e.target !== document.getElementById('mapModal')) return;
+            document.getElementById('mapModal').classList.remove('active');
+        }
+        function openMap(service) {
+            const address = "Иркутск, улица Московская 1-ая, 1а, стр. 1";
+            const encoded = encodeURIComponent(address);
+            
+            if (service === 'yandex') window.open(`https://yandex.ru/maps/?text=${encoded}`, '_blank');
+            else if (service === 'google') window.open(`https://www.google.com/maps/dir/?api=1&destination=${encoded}`, '_blank');
+            else if (service === '2gis') window.open(`https://2gis.ru/search/${encoded}`, '_blank');
+            
+            closeMapModal();
+        }
+    </script>
+</body>
+</html>
